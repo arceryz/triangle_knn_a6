@@ -11,7 +11,8 @@ y_values = np.zeros(n_values.size)
 
 for i in range(n_values.size):
 	n = n_values[i]
-	y_values[i] = run_experiment_batch(n, 10000, 7, 0, 0)
+	batch = run_experiment_batch(n, 10000, 7, 0, 0)
+	y_values[i] = batch.mean()
 
 plt.title("Misclassifications and Density")
 plt.xlabel("Number of synthetic points")

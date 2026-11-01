@@ -65,8 +65,8 @@ def run_experiment_sample(n, n_test, k, fi, fo) -> ExperimentResult:
 	result = ExperimentResult(S=S, T=T, s_labels=s_labels, knn_labels=knn_labels, num_misses=misses)
 	return result
 
-def run_experiment_batch(n, n_test, k, fi, fo) -> int:
-	count = 0
-	for i in range(30):
-		count += run_experiment_sample(n, n_test, k, fi, fo).num_misses
-	return int(round(float(count) / 30))
+def run_experiment_batch(n, n_test, k, fi, fo) -> np.ndarray:
+	values = np.zeros(30)
+	for i in range(values.size):
+		values[i] = run_experiment_sample(n, n_test, k, fi, fo).num_misses
+	return values
