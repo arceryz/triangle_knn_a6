@@ -61,8 +61,11 @@ def run_experiment_sample(n, n_test, k, fi, fo) -> ExperimentResult:
 	knn_labels = (knn_labels_avg > 0.5).astype(np.int8)
 
 	# Compute number of mismatched labels from exact triangle classifier.
-	misses = int(np.sum(knn_labels != get_point_labels(T)))
+	t_labels = get_point_labels(T)
+	misses = int(np.sum(knn_labels != t_labels))
 	result = ExperimentResult(S=S, T=T, s_labels=s_labels, knn_labels=knn_labels, num_misses=misses)
+	result.num_false_red = int(np.sum((t_labels == 0) & (knn_labels == 1)))
+	result.num_false_blue = int(np.sum((t_labels == 1) & (knn_labels == 0)))
 	return result
 
 def run_experiment_batch(n, n_test, k, fi, fo) -> np.ndarray:
